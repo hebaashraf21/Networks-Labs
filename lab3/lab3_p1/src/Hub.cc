@@ -19,10 +19,8 @@ Define_Module(Hub);
 
 void Hub::initialize()
 {
-    int N = getParentModule()->par("N");
-    int randomNode = intuniform(0, N-1);
-    cMessage *helloMsg = new cMessage("Hello from Hub");
-    send(helloMsg, "out", randomNode);
+
+    scheduleAt(simTime() , new cMessage(""));
 }
 
 void Hub::handleMessage(cMessage *msg)
@@ -39,6 +37,6 @@ void Hub::handleMessage(cMessage *msg)
     {
         double interval = exponential(2.0);
         cMessage *selfMsg = new cMessage("Self Message");
-        scheduleAt(simTime() + interval, selfMsg);
+        scheduleAt(simTime()+interval , selfMsg);
     }
 }
